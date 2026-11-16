@@ -1,5 +1,6 @@
 {
   // Shared compiler settings. Each package extends this file.
+  // Emit settings live in each package's tsconfig.build.json.
   "compilerOptions": {
     // Output language level and built-in type libraries
     "target": "ES2022",
@@ -21,11 +22,8 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
 
-    // Project references: tsc only emits .d.ts files (JS is built by tsup later)
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
+    // By default only check; build configs turn emitting back on
+    "noEmit": true,
 
     // Don't type-check other people's .d.ts files (faster, fewer false alarms)
     "skipLibCheck": true

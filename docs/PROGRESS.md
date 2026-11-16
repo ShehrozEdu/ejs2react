@@ -6,6 +6,9 @@ Newest entry on top. One entry per session.
 _(running list for interview prep: add each new concept with the file where it first appears)_
 
 - **Literal types / `const` inference**: `export const VERSION = "0.0.0"` has type `"0.0.0"`, not `string` (`packages/core/src/index.ts`)
+- **Widening literal types**: that `"0.0.0"` widens to `string` when passed into a generic function (`packages/core/src/index.test.ts`)
+- **`typeof` in a type position**: `typeof VERSION` gives the declared type of a value
+- **Type-level tests**: `expectTypeOf<T>().toEqualTypeOf<U>()`, checked by `tsc`, not at runtime
 - **Explicit return types**: `formatVersion(): string` (`packages/cli/src/index.ts`)
 - **tsconfig strictness flags**: `strict`, `noUncheckedIndexedAccess`, `verbatimModuleSyntax` (`tsconfig.base.json`)
 - **Project references + `composite`**: `tsc -b` builds core before cli (`tsconfig.json`)
@@ -22,6 +25,13 @@ _(running list for interview prep: add each new concept with the file where it f
 - **Next task:**
 
 ---
+
+### 2026-11-16: 0.3 Vitest + first tests
+- **Done:** Vitest 5.1 with one root config (colocated `*.test.ts`, alias `@ejs2react/core` → core source). Split each package into `tsconfig.json` (editor + tests) and `tsconfig.build.json` (emit, no tests); see ADR-014. `npm test` passes (2 files, 3 tests); `npm run typecheck` passes. Raised the minimum Node to 22.12 (ADR-013). Re-verified that core still rejects `process`.
+- **TS concepts learned:** widening literal types, `typeof` in types, type-level tests with `expectTypeOf`.
+- **Lesson:** the first version of the literal-type test failed `tsc`. The test caught a wrong mental model, which is exactly why we write type tests.
+- **Open questions:** none.
+- **Next task:** 0.4 ESLint (flat config, typescript-eslint) + Prettier; a rule blocking Node built-ins in `packages/core`.
 
 ### 2026-11-16: 0.2 TypeScript config + package skeletons
 - **Done:** `tsconfig.base.json` (strict + extra checks), root solution `tsconfig.json` with project references, `packages/core` (`@ejs2react/core`, private, `types: []`) and `packages/cli` (`ejs2react`, Node types). TypeScript pinned to 6.0.3 (ADR-011); setup in ADR-012. `npm run typecheck` is green. Verified that core rejects `node:fs` and `process` (TS2591).

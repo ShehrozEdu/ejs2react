@@ -111,7 +111,7 @@ apps/
 fixtures/        ← input .ejs + sample data + expected output, SOURCES.md
 docs/            ← PLAN.md, PROGRESS.md, DECISIONS.md
 ```
-**Stack:** TypeScript, Node 20+, Vitest, tsup (ESM + `.d.ts`), acorn (+ `@types/estree`), parse5, ejs, react/react-dom (18 and 19 via aliases), prettier, zod, commander, @clack/prompts, Playwright, archiver.
+**Stack:** TypeScript 6.0 (ADR-011), Node 22.12+ (ADR-013), Vitest, tsup (ESM + `.d.ts`), acorn (+ `@types/estree`), parse5, ejs, react/react-dom (18 and 19 via aliases), prettier, zod, commander, @clack/prompts, Playwright, archiver.
 
 ### The IR (everything depends on it)
 ```ts
@@ -153,10 +153,10 @@ Each task ends with a passing test (or a green check) and a commit.
 ### Phase 0: setup
 - [x] 0.1 `git init`, `.gitignore`, `.editorconfig`, root `package.json` with npm workspaces, MIT `LICENSE`, README stub
 - [x] 0.2 `tsconfig.base.json` (strict, `noUncheckedIndexedAccess`, ESM, `Bundler`) + `packages/core` and `packages/cli` skeletons with project references
-- [ ] 0.3 Vitest in both packages + one trivial passing test; `npm test` and `npm run typecheck` at the root
+- [x] 0.3 Vitest in both packages + one trivial passing test; `npm test` and `npm run typecheck` at the root
 - [ ] 0.4 ESLint (flat config, typescript-eslint) + Prettier; a rule that blocks Node built-ins in `packages/core`
 - [ ] 0.5 tsup build for core + cli with a proper `exports` field; `bin` entry for the CLI
-- [ ] 0.6 GitHub Actions CI: install, lint, typecheck, test on Node 20 + 22
+- [ ] 0.6 GitHub Actions CI: install, lint, typecheck, test on Node 22 + 24
 - [ ] 0.7 Check the npm name again (free on 2026-11-16), then publish a minimal working `ejs2react@0.0.1` (`--version`/`--help` only, ADR-010)
 - **Gate:** `npm test` is green in CI.
 

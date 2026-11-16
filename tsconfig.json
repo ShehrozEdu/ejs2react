@@ -1,6 +1,9 @@
 {
-  // Root "solution" file: compiles nothing itself, just lists the projects.
+  // Root "solution" file: compiles nothing itself, just lists the build projects.
   // `tsc -b` builds them in dependency order (core first, then cli).
   "files": [],
-  "references": [{ "path": "packages/core" }, { "path": "packages/cli" }]
+  "references": [
+    { "path": "packages/core/tsconfig.build.json" },
+    { "path": "packages/cli/tsconfig.build.json" }
+  ]
 }

@@ -1,0 +1,16 @@
+{
+  // Build config: source only (no tests), emits .d.ts into dist/.
+  // This is the strict browser-safe check: `process`, `Buffer` and `node:*`
+  // imports are type errors here, because nothing loads Node's types.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "exclude": ["src/**/*.test.ts"]
+}

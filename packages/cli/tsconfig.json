@@ -1,12 +1,9 @@
 {
+  // Editor + test config: covers src AND *.test.ts files, never emits.
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist",
     // The CLI runs in Node, so it gets Node's type definitions.
     "types": ["node"]
   },
-  "include": ["src"],
-  // The CLI depends on core: build core's types first.
-  "references": [{ "path": "../core" }]
+  "include": ["src"]
 }

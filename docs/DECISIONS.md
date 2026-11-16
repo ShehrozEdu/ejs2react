@@ -80,3 +80,21 @@ Short records: context, decision, alternatives, why. Newest at the bottom.
   - `core` is `private` for now. `cli` (npm name `ejs2react`) will bundle core, so it's a devDependency of cli and only one package is published.
 - **Alternatives:** `NodeNext` resolution (needs `.js` extensions in every import); tsc for both types and JS; publishing `@ejs2react/core` separately (needs an npm org).
 - **Why:** Bundler resolution matches how the code is actually consumed (tsup, Vite). `"types": []` turns ADR-002 into a compile error, not just a convention; this was verified by adding `node:fs` and `process` to core, which failed with TS2591. One published package keeps `npx ejs2react` simple.
+- **Update (ADR-014):** composite/emit settings moved from each package's `tsconfig.json` into its `tsconfig.build.json`.
+
+## ADR-013: Minimum Node version is 22.12 (not 20)
+- **Date:** 2026-11-16
+- **Decision:** `engines.node: ">=22.12"` for the repo and the published CLI. CI tests Node 22 and 24.
+- **Alternatives:** Keep Node 20+ from the original brief; pin an older Vitest that still supports 20.
+- **Why:** Node 20 reached end-of-life in April 2026, and Vitest 5 requires `^22.12.0 || ^24 || >=26`. Supporting an EOL runtime would mean old tooling for no real users.
+
+## ADR-014: Tests live next to the code; two tsconfigs per package
+- **Date:** 2026-11-16
+- **Decision:**
+  - Tests are colocated (`foo.ts` + `foo.test.ts`) and run by one root `vitest.config.ts`.
+  - Each package has a `tsconfig.json` (src + tests, `noEmit`; VS Code uses it) and a `tsconfig.build.json` (src only, composite, emits `.d.ts`; `tsc -b` uses it).
+  - `npm run typecheck` runs both: `tsc -b`, then `tsc -p` on each package.
+  - In tests, `@ejs2react/core` is aliased to `packages/core/src/index.ts`, so `npm test` needs no build step.
+- **Alternatives:** A separate `test/` folder per package; one tsconfig that includes tests (test `.d.ts` files would leak into `dist/`); a `tsconfig.test.json` (VS Code would ignore it and check tests with default, non-strict settings).
+- **Why:** Tests stay type-checked with the same strict settings, the editor sees them, and `dist/` contains only real source declarations.
+- **Note:** In the editor config, Vitest's types pull in Node's types, so the editor may not flag `process` in core source. The build config (`tsc -b`, no tests) still does; this was verified after the split. The ESLint rule in task 0.4 adds a second guard.

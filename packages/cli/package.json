@@ -19,7 +19,7 @@
     "jsx"
   ],
   "engines": {
-    "node": ">=20"
+    "node": ">=22.12"
   },
   "exports": {
     ".": {
@@ -29,6 +29,6 @@
   },
   "devDependencies": {
     "@ejs2react/core": "0.0.0",
-    "@types/node": "^20.19.43"
+    "@types/node": "^22.20.5"
   }
 }

@@ -1,10 +1,8 @@
 {
+  // Editor + test config: covers src AND *.test.ts files, never emits.
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist",
-    // Browser-safe rule (ADR-002): no Node type definitions at all.
-    // `process`, `Buffer`, `require` and `node:*` imports become type errors here.
+    // Browser-safe rule (ADR-002): no Node type definitions for core.
     "types": []
   },
   "include": ["src"]
