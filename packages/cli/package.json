@@ -1,0 +1,34 @@
+{
+  "name": "ejs2react",
+  "version": "0.0.0",
+  "description": "Migrate Express + EJS apps to React, and prove the converted pages render the same.",
+  "license": "MIT",
+  "author": "Shehroz Batt",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShehrozEdu/ejs2react.git",
+    "directory": "packages/cli"
+  },
+  "keywords": [
+    "ejs",
+    "react",
+    "migration",
+    "express",
+    "codemod",
+    "jsx"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "@ejs2react/core": "0.0.0",
+    "@types/node": "^20.19.43"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    // Browser-safe rule (ADR-002): no Node type definitions at all.
+    // `process`, `Buffer`, `require` and `node:*` imports become type errors here.
+    "types": []
+  },
+  "include": ["src"]
+}

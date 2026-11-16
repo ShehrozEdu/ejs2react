@@ -16,5 +16,11 @@
     "packages/*",
     "apps/*"
   ],
-  "scripts": {}
+  "scripts": {
+    "typecheck": "tsc -b",
+    "clean": "tsc -b --clean"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3"
+  }
 }

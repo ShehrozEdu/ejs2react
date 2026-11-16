@@ -1,0 +1,33 @@
+{
+  // Shared compiler settings. Each package extends this file.
+  "compilerOptions": {
+    // Output language level and built-in type libraries
+    "target": "ES2022",
+    "lib": ["ES2022"],
+
+    // Modules: we write ESM, and a bundler (tsup / Vite) resolves imports
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+
+    // Type-safety: strict mode plus extra checks from the brief
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Project references: tsc only emits .d.ts files (JS is built by tsup later)
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+
+    // Don't type-check other people's .d.ts files (faster, fewer false alarms)
+    "skipLibCheck": true
+  }
+}

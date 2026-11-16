@@ -1,0 +1,15 @@
+{
+  "name": "@ejs2react/core",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Browser-safe EJS → IR → React converter and verifier (core of ejs2react).",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  }
+}

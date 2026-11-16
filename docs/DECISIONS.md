@@ -63,3 +63,20 @@ Short records: context, decision, alternatives, why. Newest at the bottom.
 - **Decision:** The first npm publish is a real CLI that prints `--help` and `--version`.
 - **Alternatives:** An empty placeholder package.
 - **Why:** npm's policy discourages packages that only reserve a name. A minimal working CLI reserves the name properly and also tests the build + `bin` setup end to end.
+
+## ADR-011: Pin TypeScript 6.0.x (not 7)
+- **Date:** 2026-11-16
+- **Decision:** Use `typescript@6.0.3`, pinned exactly.
+- **Alternatives:** TypeScript 7 (the native Go port, `latest` on npm).
+- **Why:** TS 7's main export is only a version string; its compiler API lives under `unstable/*` and talks to a native binary, so it can't run in a browser. We need a stable, browser-safe `ts.transpileModule` (ADR-007) and `ts.createProgram` (type-checking output). Revisit when TS 7 ships a stable JS API.
+
+## ADR-012: Typecheck with `tsc -b` (types only); JS is built by tsup; one published package
+- **Date:** 2026-11-16
+- **Decision:**
+  - The root `tsconfig.json` uses project references (`core` ← `cli`). Each package is `composite` with `emitDeclarationOnly`.
+  - `tsc -b` type-checks and writes `.d.ts` files. tsup (task 0.5) will write the JS.
+  - Both use `moduleResolution: "Bundler"`, so imports need no `.js` extensions.
+  - `core` uses `"types": []`, so Node globals and `node:*` imports are type errors.
+  - `core` is `private` for now. `cli` (npm name `ejs2react`) will bundle core, so it's a devDependency of cli and only one package is published.
+- **Alternatives:** `NodeNext` resolution (needs `.js` extensions in every import); tsc for both types and JS; publishing `@ejs2react/core` separately (needs an npm org).
+- **Why:** Bundler resolution matches how the code is actually consumed (tsup, Vite). `"types": []` turns ADR-002 into a compile error, not just a convention; this was verified by adding `node:fs` and `process` to core, which failed with TS2591. One published package keeps `npx ejs2react` simple.

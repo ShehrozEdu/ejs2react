@@ -152,7 +152,7 @@ Each task ends with a passing test (or a green check) and a commit.
 
 ### Phase 0: setup
 - [x] 0.1 `git init`, `.gitignore`, `.editorconfig`, root `package.json` with npm workspaces, MIT `LICENSE`, README stub
-- [ ] 0.2 `tsconfig.base.json` (strict, `noUncheckedIndexedAccess`, ESM, `NodeNext`/`Bundler`) + `packages/core` and `packages/cli` skeletons with project references
+- [x] 0.2 `tsconfig.base.json` (strict, `noUncheckedIndexedAccess`, ESM, `Bundler`) + `packages/core` and `packages/cli` skeletons with project references
 - [ ] 0.3 Vitest in both packages + one trivial passing test; `npm test` and `npm run typecheck` at the root
 - [ ] 0.4 ESLint (flat config, typescript-eslint) + Prettier; a rule that blocks Node built-ins in `packages/core`
 - [ ] 0.5 tsup build for core + cli with a proper `exports` field; `bin` entry for the CLI
