@@ -184,9 +184,9 @@ Each task ends with a passing test (or a green check) and a commit.
 - [x] 0.2 `tsconfig.base.json` (strict, `noUncheckedIndexedAccess`, ESM, `Bundler`) + `packages/core` and `packages/cli` skeletons with project references
 - [x] 0.3 Vitest in both packages + one trivial passing test; `npm test` and `npm run typecheck` at the root
 - [x] 0.4 ESLint (flat config, typescript-eslint) + Prettier; a rule that blocks Node built-ins in `packages/core`
-- [ ] 0.5 tsup build for core + cli with a proper `exports` field; `bin` entry for the CLI
+- [x] 0.5 tsup build for core + cli with a proper `exports` field; `bin` entry for the CLI
 - [ ] 0.6 GitHub Actions CI: install, lint, typecheck, test on Node 22 + 24
-- [ ] 0.7 Check the npm name again (free on 2026-11-16), then publish a minimal working `ejs2react@0.0.1` (`--version`/`--help` only, ADR-010)
+- [ ] 0.7 Check the npm name again (free on 2026-11-16), then publish a minimal working `ejs2react@0.0.1` (`--version`/`--help` only, ADR-010). Before publishing: get README + LICENSE into `packages/cli` (npm only includes them from the package folder), and check with `npm pack --dry-run -w ejs2react`.
 - **Gate:** `npm test` is green in CI.
 
 ### Phase 1: Level 1 core (single template)

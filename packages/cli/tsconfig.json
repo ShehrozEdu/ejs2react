@@ -5,5 +5,5 @@
     // The CLI runs in Node, so it gets Node's type definitions.
     "types": ["node"]
   },
-  "include": ["src"]
+  "include": ["src", "tsup.config.ts"]
 }

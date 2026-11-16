@@ -10,7 +10,12 @@
     "declarationMap": true,
     "emitDeclarationOnly": true,
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    // Keep tsc's incremental state inside dist/, so cleaning dist/ (tsup does)
+    // also resets it. Otherwise tsc thinks the deleted .d.ts files still exist.
+    // Not a dotfile on purpose: tsup's clean skips dotfiles.
+    "tsBuildInfoFile": "dist/tsconfig.build.tsbuildinfo"
   },
+  "include": ["src"],
   "exclude": ["src/**/*.test.ts"]
 }

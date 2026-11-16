@@ -8,8 +8,11 @@
     "declarationMap": true,
     "emitDeclarationOnly": true,
     "rootDir": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    // Keep tsc's incremental state inside dist/ (see core's tsconfig.build.json)
+    "tsBuildInfoFile": "dist/tsconfig.build.tsbuildinfo"
   },
+  "include": ["src"],
   "exclude": ["src/**/*.test.ts"],
   // The CLI depends on core: build core's types first.
   "references": [{ "path": "../core/tsconfig.build.json" }]

@@ -1,7 +1,16 @@
+import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 
+const cliPkg = JSON.parse(
+  readFileSync(new URL("./packages/cli/package.json", import.meta.url), "utf8"),
+) as { version: string };
+
 export default defineConfig({
+  // Same build-time constant tsup injects (see packages/cli/src/version.ts)
+  define: {
+    __CLI_VERSION__: JSON.stringify(cliPkg.version),
+  },
   resolve: {
     alias: {
       // Tests import core's TypeScript source directly, so `npm test`

@@ -16,6 +16,10 @@ _(running list for interview prep: add each new concept with the file where it f
 - **`types: []`**: controls which global type packages a project sees (`packages/core/tsconfig.json`)
 - **Type-aware linting**: ESLint rules that use the TypeScript type checker, e.g. `switch-exhaustiveness-check` and `no-unsafe-member-access` (`eslint.config.js`)
 - **`// @ts-check` in a JS file**: asks TypeScript to type-check a plain `.js` file (`eslint.config.js`)
+- **`declare const`**: tells TypeScript a value exists without creating it; filled in at build time (`packages/cli/src/version.ts`)
+- **`catch (error: unknown)` + `instanceof` narrowing**: caught errors are `unknown`, so you must narrow before reading fields (`packages/cli/src/index.test.ts`)
+- **Inline object return types**: `function run(): { stdout: string; exitCode: number }` (`packages/cli/src/index.test.ts`)
+- **`as` type assertions**: `JSON.parse(...) as { version: string }` tells TypeScript the shape and is _not_ checked at runtime (`packages/cli/tsup.config.ts`)
 
 ---
 
@@ -29,6 +33,15 @@ _(running list for interview prep: add each new concept with the file where it f
 - **Next task:**
 
 ---
+
+### 2026-11-16: 0.5 tsup build + `bin` entry
+
+- **Done:** tsup 8.5 builds core (`platform: neutral`) and cli (`platform: node`, bundles core). commander 15 CLI with `--version`, `--help`, help on no args, and exit code 1 on unknown options. The version comes from `package.json` through a build-time `define`. `npx ejs2react --version` works locally. `npm pack --dry-run` ships only `dist/` + `package.json`. 8 tests pass; `npm run check` passes. See ADR-016.
+- **Bugs found and fixed:** `.d.ts` files vanished on rebuild (stale tsbuildinfo outside `dist/`, then tsup's clean skipping dotfiles); tsup config files weren't covered by any tsconfig (lint errors).
+- **TS concepts learned:** `declare const`, `unknown` in `catch` + `instanceof` narrowing, inline object return types, `as` assertions.
+- **Not yet verified:** core being bundled into cli. The CLI doesn't import core yet; this gets tested in 1.29.
+- **Open questions:** Upgrade to Node 24 LTS at some point, which unlocks tsup 9.
+- **Next task:** 0.6 GitHub Actions CI (needs the GitHub repo to exist; check the username `ShehrozEdu`).
 
 ### 2026-11-16: 0.4 ESLint + Prettier + core boundary rule
 

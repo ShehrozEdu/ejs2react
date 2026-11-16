@@ -5,5 +5,5 @@
     // Browser-safe rule (ADR-002): no Node type definitions for core.
     "types": []
   },
-  "include": ["src"]
+  "include": ["src", "tsup.config.ts"]
 }

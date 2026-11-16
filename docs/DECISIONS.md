@@ -125,3 +125,16 @@ Short records: context, decision, alternatives, why. Newest at the bottom.
   - `npm run check` runs format, lint, typecheck and tests.
 - **Alternatives:** `recommendedTypeChecked` (less strict); a hand-written list of Node modules; Biome instead of ESLint + Prettier.
 - **Why:** The project's goal is learning strict TypeScript, so strict lint rules act as a second reviewer. Building the blocklist from `builtinModules` means it can't go stale. ESLint + Prettier is what most teams and job descriptions expect. Verified: a probe file in core importing `fs` and `node:path` and using `process` produced 3 boundary errors.
+
+## ADR-016: Build with tsup 8; CLI split into version / program / bin
+
+- **Date:** 2026-11-16
+- **Decision:**
+  - `tsup@^8.5` builds the ESM JS. Core uses `platform: "neutral"`; cli uses `platform: "node"` and bundles core (`noExternal`). `dependencies` such as commander stay external.
+  - `npm run build` runs core's tsup, then cli's tsup, then `tsc -b` for the `.d.ts` files.
+  - `tsBuildInfoFile` lives inside `dist/` with a normal (non-dot) name, so tsup's clean resets it.
+  - The CLI is split into `version.ts` (a `declare`d build-time constant injected by tsup/vitest `define` from `package.json`), `program.ts` (`createProgram()`, testable in-process with `exitOverride` + `configureOutput`) and `cli.ts` (a 1-line `bin` with the shebang).
+  - `tsup.config.ts` files are included in each package's editor tsconfig, so they are linted and type-checked properly.
+- **Alternatives:** tsup 9 / tsdown (both need Node >= 22.18, but dev Node is 22.14); plain esbuild scripts; reading `package.json` at runtime with `createRequire` (returns `any`); letting tsup generate `.d.ts`.
+- **Why:** tsup 8.5 is maintained (updated Oct 2026) and runs on the current dev Node. Upgrade to tsup 9 once dev Node is >= 22.18 (recommended: Node 24 LTS). A build-time constant keeps the version typed and means no file reads at startup.
+- **Bugs found while setting this up:** (1) `tsc` kept its build info next to the tsconfig, so after tsup cleaned `dist/`, `tsc -b` said "up to date" and skipped writing `.d.ts` files. (2) After moving it into `dist/` as `.tsbuildinfo`, tsup's clean skipped it because it is a dotfile. Both were verified fixed by building twice in a row.
