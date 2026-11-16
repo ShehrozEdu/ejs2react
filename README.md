@@ -1,5 +1,7 @@
 # ejs2react
 
+[![CI](https://github.com/ShehrozEdu/ejs2react/actions/workflows/ci.yml/badge.svg)](https://github.com/ShehrozEdu/ejs2react/actions/workflows/ci.yml)
+
 > Migrate Express + EJS apps to React, and **prove** the converted pages render the same.
 
 **Status: early development. Nothing works yet.** Follow progress in [docs/PROGRESS.md](docs/PROGRESS.md).

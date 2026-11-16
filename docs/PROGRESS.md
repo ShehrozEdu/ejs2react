@@ -34,6 +34,13 @@ _(running list for interview prep: add each new concept with the file where it f
 
 ---
 
+### 2026-11-16: 0.6 GitHub Actions CI (written, not yet run on GitHub)
+
+- **Done:** `.github/workflows/ci.yml`: Node 22 + 24 matrix on ubuntu, `npm ci` → format → lint → build → typecheck → test → CLI smoke test. Read-only token, and newer pushes cancel older runs. CI badge in the README. `origin` remote set to `https://github.com/ShehrozEdu/ejs2react.git`. All steps pass locally after a fresh `npm ci` (Windows, Node 22.14).
+- **Blocked:** the GitHub repo isn't created yet. `gh` isn't installed, and reading the saved Git credential to call the API was (rightly) blocked by the permission system. Waiting for the developer to create the empty repo.
+- **Not yet verified:** CI on Linux and Node 24. Phase 0 gate ("`npm test` green in CI") is still open.
+- **Next task:** push to GitHub, watch the first CI run, then 1.1 IR types.
+
 ### 2026-11-16: 0.5 tsup build + `bin` entry
 
 - **Done:** tsup 8.5 builds core (`platform: neutral`) and cli (`platform: node`, bundles core). commander 15 CLI with `--version`, `--help`, help on no args, and exit code 1 on unknown options. The version comes from `package.json` through a build-time `define`. `npx ejs2react --version` works locally. `npm pack --dry-run` ships only `dist/` + `package.json`. 8 tests pass; `npm run check` passes. See ADR-016.
