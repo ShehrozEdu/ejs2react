@@ -21,6 +21,7 @@
 **Claude writes all the code, core included. The developer learns it and must be able to explain it.**
 
 For core code (`packages/core/src/ir/`, `parsers/`, `classify/`, `generate/`, `verify/diff*`, type inference):
+
 1. **Concept first.** Before writing, explain the idea briefly with a tiny example.
 2. **Tests first.** Write the failing Vitest tests, show them, and explain what "done" means.
 3. **Small pieces.** Write the implementation in small steps (one function or concept at a time), not one big dump.
@@ -31,8 +32,9 @@ For core code (`packages/core/src/ir/`, `parsers/`, `classify/`, `generate/`, `v
 For non-core code (repo setup, tsconfig, build, CI, fixtures, CLI wiring, README, zip and file glue): write it and explain it in a few lines. Answer any "why" properly.
 
 **Always:**
+
 - Before each commit, ask 1–2 quick questions about the code in it. If the developer can't answer, go over it first.
-- When a TypeScript feature shows up for the first time (unions, narrowing, generics, `never`, mapped types, `satisfies`, `infer`, etc.), stop and give a ~5-line explanation with an example from *this* codebase.
+- When a TypeScript feature shows up for the first time (unions, narrowing, generics, `never`, mapped types, `satisfies`, `infer`, etc.), stop and give a ~5-line explanation with an example from _this_ codebase.
 - Teaching style: short and direct. No long lectures.
 - Keep a running list of the TS concepts covered in `docs/PROGRESS.md` (interview prep).
 
@@ -50,14 +52,17 @@ For non-core code (repo setup, tsconfig, build, CI, fixtures, CLI wiring, README
 ## How every session goes
 
 **Start**
+
 1. Read `docs/PROGRESS.md` and `docs/PLAN.md`.
 2. Say in 3–5 lines where we are, then propose **one** task for today that fits 30–90 minutes.
 
 **During**
+
 3. Core: concept → failing tests → Claude implements in small pieces with explanations → understanding check. Non-core: Claude implements and explains briefly.
 
 **End**
-4. Run typecheck + tests (`npm run typecheck`, `npm test`). Commit only when green, or say clearly what isn't.
+
+4. Run `npm run check` (format, lint, typecheck, tests). Commit only when green, or say clearly what isn't.
 5. Update `docs/PROGRESS.md`: date, what was done, TS concepts learned (by name), open questions, next task.
 6. Ask one quick recap question about today's code.
 
