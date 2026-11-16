@@ -1,0 +1,20 @@
+{
+  "name": "ejs2react-monorepo",
+  "private": true,
+  "description": "Migrate Express + EJS apps to React, and prove the converted pages render the same.",
+  "license": "MIT",
+  "author": "Shehroz Batt",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShehrozEdu/ejs2react.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {}
+}
